@@ -6,16 +6,16 @@ const Nav = () => {
   return (
     <header className="bg-headerolor px-10 py-5  text-white ">
       <div className="wrapper flex justify-between mx-auto items-center">
-        <h1 className="font-semibold text-xl">MovieDb</h1>
+        <h1 className="font-semibold text-xl" title="Movie Db">MovieDb</h1>
         <div className="flex ">
           <ul className="flex gap-6 mr-4 items-center">
             {navData.map((navItems) => {
               return (
                 <li
                   key={navItems.navName}
-                  className="text-headerTxtColor font-semibold"
+                  className="text-headerTxtColor font-semibold  hover:text-white"
                 >
-                  <Link to={navItems.url}>{navItems.navName}</Link>
+                  <Link to={navItems.url} title={navItems.navName}>{navItems.navName}</Link>
                 </li>
               );
             })}
