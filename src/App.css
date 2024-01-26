@@ -2,10 +2,6 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  text-decoration: none;
 }
 
-:root {
-  --primary-color: #282C34;
-  --text-color: #D6D8D9;
-  --header-bg: #343A3F;
-}
