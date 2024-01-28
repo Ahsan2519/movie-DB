@@ -1,4 +1,9 @@
-import { FETCHMOVIESERROR, FETCHMOVIESPENDING, FETCHMOVIESSUCCESS, SEARCHMOVIES } from "../actions/MoviesAction";
+import {
+  FETCHMOVIESERROR,
+  FETCHMOVIESPENDING,
+  FETCHMOVIESSUCCESS,
+  SEARCHMOVIES,
+} from "../actions/MoviesAction";
 
 const initialState = {
   data: null,
@@ -19,10 +24,12 @@ const MoviesReducer = (state = initialState, action) => {
         loading: false,
         data: action.payload,
       };
-      case SEARCHMOVIES:
+    case SEARCHMOVIES:
       return {
         ...state,
-        data: action.payload,
+        data: {
+          results: action.payload,
+        },
       };
     case FETCHMOVIESERROR:
       return {

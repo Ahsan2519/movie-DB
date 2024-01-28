@@ -42,7 +42,6 @@ export const fetchMovies = (url, sliceName) => {
           page: 1,
         },
       });
-      console.log("1111111111111111111111111", sliceData && sliceData.data);
 
       dispatch(fetchMoviesSuccess(response.data));
     } catch (error) {

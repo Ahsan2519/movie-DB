@@ -8,6 +8,9 @@ import { searchMovies } from "../../redux/actions/MoviesAction";
 const Nav = ({ Api_key, pageNumber, movieData }) => {
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(false);
+  const [error, setIsError] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
   const navigateHandle = (name) => {
     if (name === "Popular") {
       dispatch(
@@ -32,20 +35,27 @@ const Nav = ({ Api_key, pageNumber, movieData }) => {
       );
     }
   };
-  const searchHandler = (e)=>{
-    const searchValue = e.target.value.toLowerCase(); 
+  const searchHandler = (e) => {
+    const searchQuery = e.target.value.toLowerCase();
+    setSearchValue(searchQuery);
+    console.log(searchValue);
 
     const res = movieData?.filter((value) =>
-      value.title.toLowerCase().includes(searchValue)
+      value.title.toLowerCase().includes(searchQuery)
     );
-    
-    dispatch(searchMovies(res))
-    console.log('111111',res);
-    console.log('111111',movieData)
-  }
+
+    console.log();
+
+    if (res && res.length !== 0) {
+      dispatch(searchMovies(res));
+    } else {
+      console.log("object");
+      setIsError(true);
+    }
+  };
 
   return (
-    <header className="bg-headerolor px-10 py-5  text-white overflow-hidden ">
+    <header className="bg-headerolor px-10 py-5 pb-6  text-white overflow-hidden ">
       <div className="wrapper flex justify-between mx-auto items-center">
         <h1 className="font-semibold text-xl" title="Movie Db">
           MovieDb
@@ -86,15 +96,21 @@ const Nav = ({ Api_key, pageNumber, movieData }) => {
           <form
             action="#"
             method="post"
-            className="flex justify-between flex-col lg:flex-row lg:flex- py-4 lg:py-0"
+            className="flex justify-between flex-col lg:flex-row lg:flex- py-4 lg:py-0 relative"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
           >
-            <div className="basis-[70%] pb-3 lg:pb-0">
+            <div className="basis-[70%] pb-3 lg:pb-0 ">
               <input
                 type="text"
                 placeholder="Movie Name"
                 name="movieName"
+                value={searchValue}
                 className="text-headerolor py-2 px-4 rounded-sm w-full"
-                onChange={(e)=>{searchHandler(e)}}
+                onChange={(e) => {
+                  searchHandler(e);
+                }}
               />
             </div>
             <button
@@ -103,6 +119,11 @@ const Nav = ({ Api_key, pageNumber, movieData }) => {
             >
               Search{" "}
             </button>
+            {error && (
+              <span className="text-red-600 block absolute -bottom-6 text-lg">
+                Sorry we couldn't find any movies{" "}
+              </span>
+            )}
           </form>
         </nav>
       </div>

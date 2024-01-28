@@ -3,7 +3,7 @@ import {  useSelector } from "react-redux";
 import MovieCrads from "../components/cards/MovieCrads";
 
 const Home = ({Api_key}) => {
-  const movieData = useSelector((state) => state.movies?.data?.results ? state.movies?.data?.results : state.movies?.data);
+  const movieData = useSelector((state) => state.movies?.data?.results);
   console.log(movieData)
   return (
     <div className="bg-primary">
