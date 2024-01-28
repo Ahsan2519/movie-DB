@@ -1,32 +1,100 @@
-import React from "react";
-import { navData } from "../../lib/constant/ConstantVal";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { fetchMovies, navData } from "../../lib/constant/ConstantVal";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { searchMovies } from "../../redux/actions/MoviesAction";
 
-const Nav = () => {
+const Nav = ({ Api_key, pageNumber, movieData }) => {
+  const dispatch = useDispatch();
+  const [toggle, setToggle] = useState(false);
+  const navigateHandle = (name) => {
+    if (name === "Popular") {
+      dispatch(
+        fetchMovies(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
+          "movies"
+        )
+      );
+    } else if (name === "Top Rated") {
+      dispatch(
+        fetchMovies(
+          `https://api.themoviedb.org/3/movie/top_rated?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
+          "movies"
+        )
+      );
+    } else {
+      dispatch(
+        fetchMovies(
+          `https://api.themoviedb.org/3/movie/upcoming?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
+          "movies"
+        )
+      );
+    }
+  };
+  const searchHandler = (e)=>{
+    const searchValue = e.target.value.toLowerCase(); 
+
+    const res = movieData?.filter((value) =>
+      value.title.toLowerCase().includes(searchValue)
+    );
+    
+    dispatch(searchMovies(res))
+    console.log('111111',res);
+    console.log('111111',movieData)
+  }
+
   return (
-    <header className="bg-headerolor px-10 py-5  text-white ">
+    <header className="bg-headerolor px-10 py-5  text-white overflow-hidden ">
       <div className="wrapper flex justify-between mx-auto items-center">
-        <h1 className="font-semibold text-xl" title="Movie Db">MovieDb</h1>
-        <div className="flex ">
-          <ul className="flex gap-6 mr-4 items-center">
+        <h1 className="font-semibold text-xl" title="Movie Db">
+          MovieDb
+        </h1>
+
+        <div onClick={() => setToggle(!toggle)}>
+          {toggle ? (
+            <FaTimes className="block lg:hidden" />
+          ) : (
+            <FaBars className="block lg:hidden" />
+          )}
+        </div>
+
+        <nav
+          className={`flex absolute ${
+            toggle ? "right-[7%] smallDevices::right-[12%]" : "right-full"
+          } transition-all ease-in-out duration-[.5s]  lg:static w-[320px] lg:w-auto lg:h-auto bg-headerolor lg:bg-inherit rounded-md lg:rounded-none rounded-t-none h-fit top-[68px] flex-col lg:flex-row px-5 lg:px-0 pt-2 lg:pt-0 z-50`}
+        >
+          <ul className="flex gap-6 mr-4 items-center flex-col lg:flex-row">
             {navData.map((navItems) => {
               return (
                 <li
                   key={navItems.navName}
-                  className="text-headerTxtColor font-semibold  hover:text-white"
+                  className="text-headerTxtColor font-semibold  hover:text-white cursor-pointer"
+                  onClick={() => navigateHandle(navItems.navName)}
                 >
-                  <Link to={navItems.url} title={navItems.navName}>{navItems.navName}</Link>
+                  <NavLink
+                    to={navItems.url}
+                    title={navItems.navName}
+                    className={({ isActive }) => (isActive ? "text-white" : "")}
+                  >
+                    {navItems.navName}
+                  </NavLink>
                 </li>
               );
             })}
           </ul>
-          <form action="#" method="post" className="flex justify-between">
-            <div className="basis-[70%]">
+          <form
+            action="#"
+            method="post"
+            className="flex justify-between flex-col lg:flex-row lg:flex- py-4 lg:py-0"
+          >
+            <div className="basis-[70%] pb-3 lg:pb-0">
               <input
                 type="text"
                 placeholder="Movie Name"
                 name="movieName"
                 className="text-headerolor py-2 px-4 rounded-sm w-full"
+                onChange={(e)=>{searchHandler(e)}}
               />
             </div>
             <button
@@ -36,7 +104,7 @@ const Nav = () => {
               Search{" "}
             </button>
           </form>
-        </div>
+        </nav>
       </div>
     </header>
   );
