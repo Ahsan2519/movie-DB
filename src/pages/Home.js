@@ -1,14 +1,13 @@
 import React from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import MovieCrads from "../components/cards/MovieCrads";
 
-const Home = ({Api_key}) => {
+const Home = ({ Api_key, pageNumber }) => {
   const movieData = useSelector((state) => state.movies?.data?.results);
-  console.log(movieData)
   return (
     <div className="bg-primary">
       <div className="wrapper">
-        <MovieCrads movieData={movieData} Api_key= {Api_key}  />
+        <MovieCrads movieData={movieData} Api_key={Api_key} pageNumber={pageNumber}/>
       </div>
     </div>
   );

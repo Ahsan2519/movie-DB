@@ -1,27 +1,11 @@
 import React from "react";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
 const Loader = () => {
   return (
-    <Box sx={{ display: "flex ", position: 'relative', justifyContent: 'center', alignItems:'center' }}>
-      <CircularProgress />
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "25px",
-          color: "#000",
-          fontWeight: "500",
-        }}
-      >
-        Loading...
-      </Typography>
-    </Box>
+    <div className="flex w-full h-screen absolute top-0 z-50 bg-transparent justify-center items-center">
+        <div className="border-2 border-x-loaderCircle  rounded-full w-28 h-28 relative">
+        <p className="text-white font-semibold text-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">loading...</p>
+        </div>
+    </div>
   );
 };
 

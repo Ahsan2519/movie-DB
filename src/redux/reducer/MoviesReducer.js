@@ -9,6 +9,7 @@ const initialState = {
   data: null,
   loading: false,
   error: null,
+  searchData: null,
 };
 
 const MoviesReducer = (state = initialState, action) => {
@@ -27,7 +28,7 @@ const MoviesReducer = (state = initialState, action) => {
     case SEARCHMOVIES:
       return {
         ...state,
-        data: {
+        searchData: {
           results: action.payload,
         },
       };

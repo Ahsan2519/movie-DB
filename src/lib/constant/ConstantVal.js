@@ -22,7 +22,7 @@ export const navData = [
 
 const Api_key = "c45a857c193f6302f2b5061c3b85e743";
 
-export const fetchMovies = (url, sliceName) => {
+export const fetchMovies = (url, sliceName,fetchActio,pageNumber) => {
   return async (dispatch, getState) => {
     const state = getState();
     const sliceData = state[sliceName];
@@ -39,11 +39,11 @@ export const fetchMovies = (url, sliceName) => {
         params: {
           api_key: Api_key,
           language: "en-US",
-          page: 1,
+          page: pageNumber,
         },
       });
 
-      dispatch(fetchMoviesSuccess(response.data));
+      dispatch(fetchActio(response.data));
     } catch (error) {
       dispatch(fetchMoviesError(error));
     }
