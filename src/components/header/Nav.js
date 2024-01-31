@@ -83,8 +83,8 @@ const Nav = ({ Api_key, pageNumber, movieData }) => {
 
         <nav
           className={`flex absolute ${
-            toggle ? "right-[7%] smallDevices::right-[12%]" : "right-full"
-          } transition-all ease-in-out duration-[.5s]  lg:static w-[320px] lg:w-auto lg:h-auto bg-headerolor lg:bg-inherit rounded-md lg:rounded-none rounded-t-none h-fit top-[68px] flex-col lg:flex-row px-5 lg:px-0 pt-2 lg:pt-0 z-50`}
+            toggle ? "top-[68px]" : "-top-full"
+          } transition-all ease-in-out duration-[.5s]  lg:static w-full right-0 lg:w-auto lg:h-auto bg-headerolor lg:bg-inherit rounded-md lg:rounded-none rounded-t-none h-fit  flex-col lg:flex-row px-5 lg:px-0 pt-2 lg:pt-0 z-50`}
         >
           <ul className="flex gap-6 mr-4 items-center flex-col lg:flex-row">
             {navData.map((navItems) => {
