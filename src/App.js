@@ -12,7 +12,6 @@ import DetailPage from "./pages/DetailPage";
 import { fetchMoviesSuccess } from "./redux/actions/MoviesAction";
 import Pagination from "./components/pagination/Pagination";
 
-
 const App = () => {
   const loader = useSelector((state) => state.movies.loading);
   const Api_key = "c45a857c193f6302f2b5061c3b85e743";
@@ -36,17 +35,28 @@ const App = () => {
     setPageNumber(page);
   };
 
-
   return (
     <>
       {loader && <Loader />}
       <Router>
         <Nav Api_key={Api_key} pageNumber={pageNumber} movieData={movieData} />
         <Routes>
-          <Route path="/" element={<Home Api_key={Api_key} pageNumber={pageNumber} />} />
-          <Route path="/toprated" element={<TopRated Api_key={Api_key} pageNumber={pageNumber} />} />
-          <Route path="/upcoming" element={<Upcoming Api_key={Api_key} pageNumber={pageNumber}/>} />
-          <Route path="/detail" element={<DetailPage Api_key={Api_key} pageNumber={pageNumber} />} />
+          <Route
+            path="/"
+            element={<Home Api_key={Api_key} pageNumber={pageNumber} />}
+          />
+          <Route
+            path="/toprated"
+            element={<TopRated Api_key={Api_key} pageNumber={pageNumber} />}
+          />
+          <Route
+            path="/upcoming"
+            element={<Upcoming Api_key={Api_key} pageNumber={pageNumber} />}
+          />
+          <Route
+            path="/detail"
+            element={<DetailPage Api_key={Api_key} pageNumber={pageNumber} />}
+          />
         </Routes>
         <Pagination
           currentPage={pageNumber}

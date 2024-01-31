@@ -10,10 +10,12 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       for (let i = 1; i <= totalPages; i++) {
         buttons.push(
           <button
-            key={`page-${i}`} 
+            key={`page-${i}`}
             onClick={() => onPageChange(i)}
             className={`mx-1 px-3 py-1 rounded ${
-              currentPage === i ? "bg-blue-500 text-white" : "bg-white text-blue-500"
+              currentPage === i
+                ? "bg-blue-500 text-white"
+                : "bg-white text-blue-500"
             }`}
           >
             {i}
@@ -26,20 +28,26 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         for (let i = 1; i <= maxVisibleButtons; i++) {
           buttons.push(
             <button
-              key={`page-${i}`} 
+              key={`page-${i}`}
               onClick={() => onPageChange(i)}
               className={`mx-1 px-3 py-1 rounded ${
-                currentPage === i ? "bg-blue-500 text-white" : "bg-white text-blue-500"
+                currentPage === i
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-blue-500"
               }`}
             >
               {i}
             </button>
           );
         }
-        buttons.push(<span key="dots">...</span>);
+        buttons.push(
+          <span key="dots-1" className="text-white">
+            ...
+          </span>
+        );
         buttons.push(
           <button
-            key={`page-${totalPages}`} 
+            key={`page-${totalPages}`}
             onClick={() => onPageChange(totalPages)}
             className="mx-1 px-3 py-1 rounded bg-white text-blue-500"
           >
@@ -50,21 +58,27 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         // Rendering last maxVisibleButtons pages
         buttons.push(
           <button
-            key={`page-1`} 
+            key={`page-1`}
             onClick={() => onPageChange(1)}
             className="mx-1 px-3 py-1 rounded bg-white text-blue-500"
           >
             {1}
           </button>
         );
-        buttons.push(<span key="dots">...</span>);
+        buttons.push(
+          <span key="dots-2" className="text-white">
+            ...
+          </span>
+        );
         for (let i = totalPages - maxVisibleButtons + 1; i <= totalPages; i++) {
           buttons.push(
             <button
-              key={`page-${i}`} 
+              key={`page-${i}`}
               onClick={() => onPageChange(i)}
               className={`mx-1 px-3 py-1 rounded ${
-                currentPage === i ? "bg-blue-500 text-white" : "bg-white text-blue-500"
+                currentPage === i
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-blue-500"
               }`}
             >
               {i}
@@ -75,14 +89,18 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         // Rendering maxVisibleButtons pages around current page
         buttons.push(
           <button
-            key={`page-1`} 
+            key={`page-1`}
             onClick={() => onPageChange(1)}
             className="mx-1 px-3 py-1 rounded bg-white text-blue-500"
           >
             {1}
           </button>
         );
-        buttons.push(<span key="dots">...</span>);
+        buttons.push(
+          <span key="dots-3" className="text-white">
+            ...
+          </span>
+        );
         for (
           let i = currentPage - Math.floor(maxVisibleButtons / 2);
           i <= currentPage + Math.floor(maxVisibleButtons / 2);
@@ -90,17 +108,23 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         ) {
           buttons.push(
             <button
-              key={`page-${i}`} 
+              key={`page-${i}`}
               onClick={() => onPageChange(i)}
               className={`mx-1 px-3 py-1 rounded ${
-                currentPage === i ? "bg-blue-500 text-white" : "bg-white text-blue-500"
+                currentPage === i
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-blue-500"
               }`}
             >
               {i}
             </button>
           );
         }
-        buttons.push(<span key="dots">...</span>);
+        buttons.push(
+          <span key="dots-4" className="text-white">
+            ...
+          </span>
+        );
         buttons.push(
           <button
             key={`page-${totalPages}`}

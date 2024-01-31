@@ -3,7 +3,10 @@ import { fetchMovies, navData } from "../../lib/constant/ConstantVal";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { fetchMoviesSuccess, searchMovies } from "../../redux/actions/MoviesAction";
+import {
+  fetchMoviesSuccess,
+  searchMovies,
+} from "../../redux/actions/MoviesAction";
 
 const Nav = ({ Api_key, pageNumber, movieData }) => {
   const dispatch = useDispatch();
@@ -16,21 +19,27 @@ const Nav = ({ Api_key, pageNumber, movieData }) => {
       dispatch(
         fetchMovies(
           `https://api.themoviedb.org/3/movie/popular?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
-          "movies",fetchMoviesSuccess,pageNumber
+          "movies",
+          fetchMoviesSuccess,
+          pageNumber
         )
       );
     } else if (name === "Top Rated") {
       dispatch(
         fetchMovies(
           `https://api.themoviedb.org/3/movie/top_rated?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
-          "movies",fetchMoviesSuccess,pageNumber
+          "movies",
+          fetchMoviesSuccess,
+          pageNumber
         )
       );
     } else {
       dispatch(
         fetchMovies(
           `https://api.themoviedb.org/3/movie/upcoming?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
-          "movies",fetchMoviesSuccess,pageNumber
+          "movies",
+          fetchMoviesSuccess,
+          pageNumber
         )
       );
     }
@@ -46,12 +55,14 @@ const Nav = ({ Api_key, pageNumber, movieData }) => {
 
     if (!searchQuery.trim()) {
       dispatch(searchMovies(movieData));
+      dispatch(searchMovies(null));
       setIsError(false);
     } else if (res && res.length !== 0) {
       dispatch(searchMovies(res));
       setIsError(false);
     } else {
       setIsError(true);
+      dispatch(searchMovies(null));
     }
   };
 
