@@ -138,7 +138,7 @@ const Nav = ({ Api_key, pageNumber, movieData, setIsDetailpage }) => {
             </button>
             {error && (
               <span className="text-red-600 block absolute -bottom-6 text-lg">
-                Sorry we couldn't find any movies{" "}
+                Sorry we couldn't find any movies.
               </span>
             )}
           </form>

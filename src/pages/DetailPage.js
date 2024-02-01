@@ -17,7 +17,7 @@ const DetailPage = () => {
     <div className="bg-primary py-10">
       <div className="wrapper">
         <div className="bg-gradient-to-r from-[#010B17] to-[#1A4460] rounded-md py-8 px-6">
-          <div className="flex justify-between">
+          <div className="sm:flex justify-between">
             <figure className="basis-[15%]">
               <img
                 src={`https://image.tmdb.org/t/p/w500${singleData?.poster_path}`}
@@ -40,7 +40,7 @@ const DetailPage = () => {
           <h2 className="mt-10 text-white font-semibold text-[32px]">
             Overview
           </h2>
-          <p className="text-textColor font-medium pr-[30%]">
+          <p className="text-textColor font-medium sm:pr-[15%]">
             {singleData?.overview}
           </p>
         </div>
@@ -50,7 +50,7 @@ const DetailPage = () => {
             {castDetail?.map((cast) => {
               return (
                 cast?.profile_path && (
-                  <li key={cast.cast_id} className="basis-2/12">
+                  <li key={cast.cast_id} className=" basis-full sm:basis-[45.66%] lg:basis-2/12">
                     <figure>
                       <img
                         src={`https://image.tmdb.org/t/p/w500${cast?.profile_path}`}

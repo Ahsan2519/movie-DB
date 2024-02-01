@@ -30,7 +30,7 @@ const MovieCrads = ({ movieData, Api_key, pageNumber, setIsDetailpage }) => {
   };
 
   return (
-    <u className="flex flex-wrap gap-8 py-16 justify-center lg:justify-normal">
+    <ul className="flex flex-wrap gap-8 py-16 justify-center lg:justify-normal">
       {updatedData?.map((items) => {
         return (
           <li
@@ -49,7 +49,7 @@ const MovieCrads = ({ movieData, Api_key, pageNumber, setIsDetailpage }) => {
           </li>
         );
       })}
-    </u>
+    </ul>
   );
 };
 

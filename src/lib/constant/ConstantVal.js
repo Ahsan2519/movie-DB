@@ -1,9 +1,5 @@
 import axios from "axios";
-import {
-  fetchMoviesError,
-  fetchMoviesPending,
-  fetchMoviesSuccess,
-} from "../../redux/actions/MoviesAction";
+import { fetchMoviesError } from "../../redux/actions/MoviesAction";
 
 export const navData = [
   {
@@ -22,7 +18,13 @@ export const navData = [
 
 const Api_key = "c45a857c193f6302f2b5061c3b85e743";
 
-export const fetchMovies = (url, sliceName,fetchActio,fetchPending,pageNumber) => {
+export const fetchMovies = (
+  url,
+  sliceName,
+  fetchActio,
+  fetchPending,
+  pageNumber
+) => {
   return async (dispatch, getState) => {
     const state = getState();
     const sliceData = state[sliceName];
