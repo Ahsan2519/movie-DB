@@ -9,7 +9,10 @@ import TopRated from "./pages/TopRated";
 import { fetchMovies } from "./lib/constant/ConstantVal";
 import Upcoming from "./pages/Upcoming";
 import DetailPage from "./pages/DetailPage";
-import { fetchMoviesSuccess } from "./redux/actions/MoviesAction";
+import {
+  fetchMoviesPending,
+  fetchMoviesSuccess,
+} from "./redux/actions/MoviesAction";
 import Pagination from "./components/pagination/Pagination";
 
 const App = () => {
@@ -19,6 +22,7 @@ const App = () => {
   const dispatch = useDispatch();
   const movieData = useSelector((state) => state.movies?.data?.results);
   const totalPages = useSelector((state) => state.movies?.data?.total_pages);
+  const [isDetailPage, setIsDetailpage] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -26,6 +30,7 @@ const App = () => {
         `https://api.themoviedb.org/3/movie/popular?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
         "movies",
         fetchMoviesSuccess,
+        fetchMoviesPending,
         pageNumber
       )
     );
@@ -39,30 +44,61 @@ const App = () => {
     <>
       {loader && <Loader />}
       <Router>
-        <Nav Api_key={Api_key} pageNumber={pageNumber} movieData={movieData} />
+        <Nav
+          Api_key={Api_key}
+          pageNumber={pageNumber}
+          movieData={movieData}
+          setIsDetailpage={setIsDetailpage}
+        />
         <Routes>
           <Route
             path="/"
-            element={<Home Api_key={Api_key} pageNumber={pageNumber} />}
+            element={
+              <Home
+                Api_key={Api_key}
+                pageNumber={pageNumber}
+                setIsDetailpage={setIsDetailpage}
+              />
+            }
           />
           <Route
             path="/toprated"
-            element={<TopRated Api_key={Api_key} pageNumber={pageNumber} />}
+            element={
+              <TopRated
+                Api_key={Api_key}
+                pageNumber={pageNumber}
+                setIsDetailpage={setIsDetailpage}
+              />
+            }
           />
           <Route
             path="/upcoming"
-            element={<Upcoming Api_key={Api_key} pageNumber={pageNumber} />}
+            element={
+              <Upcoming
+                Api_key={Api_key}
+                pageNumber={pageNumber}
+                setIsDetailpage={setIsDetailpage}
+              />
+            }
           />
           <Route
             path="/detail"
-            element={<DetailPage Api_key={Api_key} pageNumber={pageNumber} />}
+            element={
+              <DetailPage
+                Api_key={Api_key}
+                pageNumber={pageNumber}
+                setIsDetailpage={setIsDetailpage}
+              />
+            }
           />
         </Routes>
-        <Pagination
-          currentPage={pageNumber}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+        {!isDetailPage && (
+          <Pagination
+            currentPage={pageNumber}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        )}
         <Footer />
       </Router>
     </>

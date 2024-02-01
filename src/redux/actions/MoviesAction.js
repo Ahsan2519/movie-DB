@@ -1,8 +1,7 @@
 export const FETCHMOVIESPENDING = "FETCHMOVIESPENDING";
 export const FETCHMOVIESSUCCESS = "FETCHMOVIESSUCCESS";
 export const FETCHMOVIESERROR = "FETCHMOVIESERROR";
-export const SEARCHMOVIES = 'SEARCHMOVIES';
-
+export const SEARCHMOVIES = "SEARCHMOVIES";
 
 export const fetchMoviesPending = () => {
   return {
@@ -24,11 +23,9 @@ export const fetchMoviesError = (error) => {
   };
 };
 
-export const searchMovies = (value) =>{
+export const searchMovies = (value) => {
   return {
     type: SEARCHMOVIES,
     payload: value,
   };
-}
-
-
+};

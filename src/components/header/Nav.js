@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { fetchMovies, navData } from "../../lib/constant/ConstantVal";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FaBars, FaTimes } from "react-icons/fa";
 import {
+  fetchMoviesPending,
   fetchMoviesSuccess,
   searchMovies,
 } from "../../redux/actions/MoviesAction";
 
-const Nav = ({ Api_key, pageNumber, movieData }) => {
+const Nav = ({ Api_key, pageNumber, movieData, setIsDetailpage }) => {
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(false);
   const [error, setIsError] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
   const navigateHandle = (name) => {
+    setIsDetailpage(false)
     if (name === "Popular") {
       dispatch(
         fetchMovies(
           `https://api.themoviedb.org/3/movie/popular?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
           "movies",
           fetchMoviesSuccess,
+          fetchMoviesPending,
           pageNumber
         )
       );
@@ -30,6 +33,7 @@ const Nav = ({ Api_key, pageNumber, movieData }) => {
           `https://api.themoviedb.org/3/movie/top_rated?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
           "movies",
           fetchMoviesSuccess,
+          fetchMoviesPending,
           pageNumber
         )
       );
@@ -39,6 +43,7 @@ const Nav = ({ Api_key, pageNumber, movieData }) => {
           `https://api.themoviedb.org/3/movie/upcoming?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
           "movies",
           fetchMoviesSuccess,
+          fetchMoviesPending,
           pageNumber
         )
       );

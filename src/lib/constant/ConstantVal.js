@@ -22,7 +22,7 @@ export const navData = [
 
 const Api_key = "c45a857c193f6302f2b5061c3b85e743";
 
-export const fetchMovies = (url, sliceName,fetchActio,pageNumber) => {
+export const fetchMovies = (url, sliceName,fetchActio,fetchPending,pageNumber) => {
   return async (dispatch, getState) => {
     const state = getState();
     const sliceData = state[sliceName];
@@ -32,7 +32,7 @@ export const fetchMovies = (url, sliceName,fetchActio,pageNumber) => {
     //   return;
     // }
 
-    dispatch(fetchMoviesPending());
+    dispatch(fetchPending());
 
     try {
       const response = await axios.get(url, {
