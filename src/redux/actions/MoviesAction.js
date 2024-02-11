@@ -2,6 +2,7 @@ export const FETCHMOVIESPENDING = "FETCHMOVIESPENDING";
 export const FETCHMOVIESSUCCESS = "FETCHMOVIESSUCCESS";
 export const FETCHMOVIESERROR = "FETCHMOVIESERROR";
 export const SEARCHMOVIES = "SEARCHMOVIES";
+export const UPDATECURRENTPAGE = 'UPDATECURRENTPAGE';
 
 export const fetchMoviesPending = () => {
   return {
@@ -27,5 +28,12 @@ export const searchMovies = (value) => {
   return {
     type: SEARCHMOVIES,
     payload: value,
+  };
+};
+
+export const updateCurrentPage = (page) => {
+  return {
+    type: UPDATECURRENTPAGE,
+    payload: page,
   };
 };

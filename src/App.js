@@ -18,11 +18,12 @@ import Pagination from "./components/pagination/Pagination";
 const App = () => {
   const loader = useSelector((state) => state.movies.loading);
   const Api_key = "c45a857c193f6302f2b5061c3b85e743";
-  const [pageNumber, setPageNumber] = useState(1);
+  // const [pageNumber, setPageNumber] = useState(1);
   const dispatch = useDispatch();
   const movieData = useSelector((state) => state.movies?.data?.results);
   const totalPages = useSelector((state) => state.movies?.data?.total_pages);
   const [isDetailPage, setIsDetailpage] = useState(false);
+  const pageNumber = useSelector((state) => state.movies?.currentPage);
 
   useEffect(() => {
     dispatch(
@@ -36,17 +37,13 @@ const App = () => {
     );
   }, [dispatch, pageNumber]);
 
-  const handlePageChange = (page) => {
-    setPageNumber(page);
-  };
-
   return (
     <>
       {loader && <Loader />}
       <Router>
         <Nav
           Api_key={Api_key}
-          pageNumber={pageNumber}
+          // pageNumber={pageNumber}
           movieData={movieData}
           setIsDetailpage={setIsDetailpage}
         />
@@ -56,7 +53,7 @@ const App = () => {
             element={
               <Home
                 Api_key={Api_key}
-                pageNumber={pageNumber}
+                // pageNumber={pageNumber}
                 setIsDetailpage={setIsDetailpage}
               />
             }
@@ -66,7 +63,7 @@ const App = () => {
             element={
               <TopRated
                 Api_key={Api_key}
-                pageNumber={pageNumber}
+                // pageNumber={pageNumber}
                 setIsDetailpage={setIsDetailpage}
               />
             }
@@ -76,7 +73,7 @@ const App = () => {
             element={
               <Upcoming
                 Api_key={Api_key}
-                pageNumber={pageNumber}
+                // pageNumber={pageNumber}
                 setIsDetailpage={setIsDetailpage}
               />
             }
@@ -86,7 +83,7 @@ const App = () => {
             element={
               <DetailPage
                 Api_key={Api_key}
-                pageNumber={pageNumber}
+                // pageNumber={pageNumber}
                 setIsDetailpage={setIsDetailpage}
               />
             }
@@ -94,9 +91,8 @@ const App = () => {
         </Routes>
         {!isDetailPage && (
           <Pagination
-            currentPage={pageNumber}
+            // currentPage={pageNumber}
             totalPages={totalPages}
-            onPageChange={handlePageChange}
           />
         )}
         <Footer />

@@ -37,13 +37,7 @@ export const fetchMovies = (
     dispatch(fetchPending());
 
     try {
-      const response = await axios.get(url, {
-        params: {
-          api_key: Api_key,
-          language: "en-US",
-          page: pageNumber,
-        },
-      });
+      const response = await axios.get(url);
 
       dispatch(fetchActio(response.data));
     } catch (error) {
