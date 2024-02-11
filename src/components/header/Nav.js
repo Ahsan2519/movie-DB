@@ -8,8 +8,9 @@ import {
   fetchMoviesSuccess,
   searchMovies,
 } from "../../redux/actions/MoviesAction";
+import axios from "axios";
 
-const Nav = ({ Api_key, movieData, setIsDetailpage }) => {
+const Nav = ({ Api_key, setIsDetailpage }) => {
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(false);
   const [error, setIsError] = useState(false);
@@ -17,7 +18,7 @@ const Nav = ({ Api_key, movieData, setIsDetailpage }) => {
   const pageNumber = useSelector((state) => state.movies?.currentPage);
 
   const navigateHandle = (name) => {
-    setIsDetailpage(false)
+    setIsDetailpage(false);
     if (name === "Popular") {
       dispatch(
         fetchMovies(
@@ -51,42 +52,29 @@ const Nav = ({ Api_key, movieData, setIsDetailpage }) => {
     }
   };
 
-  const searchHandler = (e) => {
-    const searchQuery = e.target.value.toLowerCase();
+  const searchHandler = async (e) => {
+    const searchQuery = e.target.value.trim();
     setSearchValue(searchQuery);
 
-    const res = movieData?.filter((value) =>
-      value.title.toLowerCase().includes(searchQuery)
-    );
-
-    if (!searchQuery.trim()) {
-      // dispatch(searchMovies(movieData));
-      // dispatch(
-      //   fetchMovies(
-      //     `https://api.themoviedb.org/3/movie/upcoming?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
-      //     "movies",
-      //     searchMovies,
-      //     fetchMoviesPending,
-      //     pageNumber
-      //   )
-      // );
+    if (!searchQuery) {
+      setIsError(false);
       dispatch(searchMovies(null));
-      setIsError(false);
-    } else if (res && res.length !== 0) {
-      // dispatch(searchMovies(res));
-      dispatch(
-        fetchMovies(
-          `https://api.themoviedb.org/3/movie/upcoming?api_key=${Api_key}&language=en-US&page=${pageNumber}`,
-          "movies",
-          searchMovies,
-          fetchMoviesPending,
-          pageNumber
-        )
-      );
-      setIsError(false);
     } else {
-      setIsError(true);
-      dispatch(searchMovies(null));
+      const url = `https://api.themoviedb.org/3/search/movie?api_key=${Api_key}&query=${searchQuery}&page=${pageNumber}`;
+      try {
+        const response = await axios.get(url);
+        const searchData = response.data;
+        if (searchData.results.length === 0) {
+          setIsError(true);
+        } else {
+          dispatch(searchMovies(searchData));
+          setIsError(false);
+        }
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+        setIsError(error);
+        dispatch(searchMovies(null));
+      }
     }
   };
 
