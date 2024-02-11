@@ -3,6 +3,7 @@ import {
   FETCHMOVIESPENDING,
   FETCHMOVIESSUCCESS,
   SEARCHMOVIES,
+  UPDATECURRENTPAGE,
 } from "../actions/MoviesAction";
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   loading: false,
   error: null,
   searchData: null,
+  currentPage: 1,
 };
 
 const MoviesReducer = (state = initialState, action) => {
@@ -25,12 +27,16 @@ const MoviesReducer = (state = initialState, action) => {
         loading: false,
         data: action.payload,
       };
+    case UPDATECURRENTPAGE:
+      return {
+        ...state,
+        currentPage: action.payload,
+      };
     case SEARCHMOVIES:
       return {
         ...state,
-        searchData: {
-          results: action.payload,
-        },
+        loading: false,
+        searchData: action.payload,
       };
     case FETCHMOVIESERROR:
       return {
